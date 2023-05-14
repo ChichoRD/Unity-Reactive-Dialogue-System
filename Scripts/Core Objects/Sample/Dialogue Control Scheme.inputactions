@@ -1,0 +1,34 @@
+{
+    "name": "Dialogue Control Scheme",
+    "maps": [
+        {
+            "name": "Dialogue Action Map",
+            "id": "5f3df33f-a552-4578-83a2-a66efe5535a1",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "19e79d21-42d2-410f-b5e0-45e1427dc50c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d513dcb8-247b-4f20-ae16-723576100349",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

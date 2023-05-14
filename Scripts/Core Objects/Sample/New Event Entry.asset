@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff27e8f18f9d23644ba5b2ad6546e0cc, type: 3}
+  m_Name: New Event Entry
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: 
+  <ListenerRules>k__BackingField:
+  - {fileID: 11400000, guid: 2ef38e70aad91a6479cb1701441499f2, type: 2}
+  - {fileID: 11400000, guid: b460ad5d9eb54774ca0372332f1b1194, type: 2}
+  - {fileID: 11400000, guid: 6e67a655ccac1f94e9731f9a38880eab, type: 2}
+  <OnDispatched>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  _criteriaSatisfactionThreshold: 1
+  _dispatchAllThatPass: 0
