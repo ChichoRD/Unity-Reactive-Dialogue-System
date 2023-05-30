@@ -20,7 +20,7 @@ public class RuleEntryObject : DialogueEntryObject
 
     public IDialogueContent GetContent() => _content;
 
-
+#if UNITY_EDITOR
     [ContextMenu(nameof(SetSpeechContent))]
     private void SetSpeechContent() => _content = new DialogueSpeechContent();
 
@@ -33,6 +33,12 @@ public class RuleEntryObject : DialogueEntryObject
     [ContextMenu(nameof(SetCharacterisedContent))]
     private void SetCharacterisedContent() => _content = new DialogueCharacterisedContent();
 
+    [ContextMenu(nameof(SetBranchContent))]
+    private void SetBranchContent() => _content = new DialogueBranchContent();
+
+    [ContextMenu(nameof(SetCharacterisedBranchContent))]
+    private void SetCharacterisedBranchContent() => _content = new DialogueCharacterisedBranchContent();
+
 
     [ContextMenu(nameof(AddBooleanCondition))]
     private void AddBooleanCondition() => Criteria.Conditions.Add(new CriteriaBooleanCondition());
@@ -42,4 +48,5 @@ public class RuleEntryObject : DialogueEntryObject
 
     [ContextMenu(nameof(AddFactCondition))]
     private void AddFactCondition() => Criteria.Conditions.Add(new CriteriaFactCondition());
+#endif
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ImageDialogueHandler : MonoBehaviour, IDialogueHandler
 {
@@ -9,11 +10,14 @@ public class ImageDialogueHandler : MonoBehaviour, IDialogueHandler
     private Coroutine _imageShowCoroutine;
 
     public bool IsHandling => _imageShowCoroutine != null;
+    [field: SerializeField] public UnityEvent<RuleEntryObject> OnHandlingStarted { get; private set; }
+    [field: SerializeField] public UnityEvent OnHandlingStopped { get; private set; }
 
     public bool TryHandle(RuleEntryObject ruleEntryObject)
     {
         if (ruleEntryObject.GetContent() is not IDialogueImageContent content) return false;
         _imageShowCoroutine = StartCoroutine(ShowImageCoroutine(ruleEntryObject, content));
+        OnHandlingStarted?.Invoke(ruleEntryObject);
         return true;
     }
 
@@ -23,6 +27,7 @@ public class ImageDialogueHandler : MonoBehaviour, IDialogueHandler
 
         StopCoroutine(_imageShowCoroutine);
         _imageShowCoroutine = null;
+        OnHandlingStopped?.Invoke();
     }
 
     private IEnumerator ShowImageCoroutine(RuleEntryObject ruleEntryObject, IDialogueImageContent content)
@@ -30,7 +35,7 @@ public class ImageDialogueHandler : MonoBehaviour, IDialogueHandler
         SettableImage.SetImage(content.ImageUnit.Image);
         yield return content.ImageUnit.UseShowTime ? new WaitForSeconds(content.ImageUnit.ShowTime) : null;
 
-        _imageShowCoroutine = null;
+        StopHandling();
         ruleEntryObject.RaiseCascadingEvents();
     }
 }

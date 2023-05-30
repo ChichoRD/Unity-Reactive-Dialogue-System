@@ -9,9 +9,10 @@ public class DialogueEventsListener : MonoBehaviour, IDialogueEventsListener
     [SerializeField] private List<EventEntryObject> _eventsEntries = new List<EventEntryObject>();
     [SerializeField] private bool _overrideHandlingOnEventOverflow;
 
-    private IDialogueHandler DialogueHandler => _dialogueHandlerObject as IDialogueHandler;
+    public IDialogueHandler DialogueHandler => _dialogueHandlerObject as IDialogueHandler;
     public IEnumerable<EventEntryObject> EventsEntries => _eventsEntries;
     public bool OverrideHandlingOnEventOverflow => _overrideHandlingOnEventOverflow;
+    public bool Raisable => _eventsEntries.Any(e => e.GetSuccessfullyDispatchingRules(e.ListenerRules).Count() > 0);
 
     private void OnEnable()
     {
@@ -28,7 +29,10 @@ public class DialogueEventsListener : MonoBehaviour, IDialogueEventsListener
         FilterEventEntries();
 
         foreach (var eventEntry in _eventsEntries)
+        {
+            eventEntry.OnDispatched.RemoveListener(OnDialogueEventDispatched);
             eventEntry.OnDispatched.AddListener(OnDialogueEventDispatched);
+        }
     }
 
     public void FinaliseEventListening()

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 
   _content:
-    rid: 8524077476651204617
-  raisableEvents: []
+    rid: 8524077842399494144
+  raisableEvents:
+  - {fileID: 11400000, guid: df1e509d491e96340b5c04c061cdba2d, type: 2}
   <Criteria>k__BackingField:
     <Conditions>k__BackingField: []
   <OnDispatched>k__BackingField:
@@ -24,29 +25,67 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 8524077476651204617
-      type: {class: DialogueCharacterisedContent, ns: , asm: ReactiveDialogueSystem}
+    - rid: 8524077842399494144
+      type: {class: DialogueCharacterisedBranchContent, ns: , asm: ReactiveDialogueSystem}
       data:
-        _speech:
-          _dialogue:
-          - <Message>k__BackingField: Hello, I'm Elaina
-            <WaitTime>k__BackingField: 4
-            <OverrideTypingSpeed>k__BackingField: 0
-            <TypingSpeed>k__BackingField: 0
-          - <Message>k__BackingField: You've never seen anyone more beautiful, right?
-            <WaitTime>k__BackingField: 4
-            <OverrideTypingSpeed>k__BackingField: 0
-            <TypingSpeed>k__BackingField: 0
-          _skippable: 1
-        _portrait:
-          _imageUnit:
-            <Image>k__BackingField: {fileID: 21300000, guid: cee9dbe90b270c944ae1dabf41c93b10, type: 3}
-            <UseShowTime>k__BackingField: 0
-            <ShowTime>k__BackingField: 0
-        _typingSound:
-          _audioUnit:
-            <Audio>k__BackingField: {fileID: 8300000, guid: 77452a872dfafb44bae43509ea4b3516, type: 3}
-            <Volume>k__BackingField: 1
-            <VolumeVariance>k__BackingField: 0
-            <Pitch>k__BackingField: 1.2
-            <PitchVariance>k__BackingField: 1
+        _characterisedContent:
+          _speech:
+            _dialogue:
+            - <Message>k__BackingField: 'Hello,
+
+                I have a few questions
+                for ya...'
+              <WaitTime>k__BackingField: 3
+              <OverrideTypingSpeed>k__BackingField: 0
+              <TypingSpeed>k__BackingField: 0
+            - <Message>k__BackingField: 'Who do you prefer: Alice or Bob?'
+              <WaitTime>k__BackingField: 3
+              <OverrideTypingSpeed>k__BackingField: 0
+              <TypingSpeed>k__BackingField: 0
+            _skippable: 1
+          _portrait:
+            _imageUnit:
+              <Image>k__BackingField: {fileID: 21300000, guid: c7aa62ae78ffca0498c89e5f45f94c0e, type: 3}
+              <UseShowTime>k__BackingField: 0
+              <ShowTime>k__BackingField: 0
+          _typingSound:
+            _audioUnit:
+              <Audio>k__BackingField: {fileID: 8300000, guid: 77452a872dfafb44bae43509ea4b3516, type: 3}
+              <Volume>k__BackingField: 1
+              <VolumeVariance>k__BackingField: 0
+              <Pitch>k__BackingField: 1.5
+              <PitchVariance>k__BackingField: 0.5
+        _branchContent:
+          _branches:
+          - <BranchOptionText>k__BackingField: Alice
+            <OnPickedBranch>k__BackingField:
+              m_PersistentCalls:
+                m_Calls:
+                - m_Target: {fileID: 11400000, guid: 6ec191751b4bccd4f88c404c358c8256, type: 2}
+                  m_TargetAssemblyTypeName: FactEntryObject, ReactiveDialogueSystem
+                  m_MethodName: set_Value
+                  m_Mode: 3
+                  m_Arguments:
+                    m_ObjectArgument: {fileID: 0}
+                    m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                    m_IntArgument: 0
+                    m_FloatArgument: 0
+                    m_StringArgument: 
+                    m_BoolArgument: 0
+                  m_CallState: 2
+          - <BranchOptionText>k__BackingField: Bob
+            <OnPickedBranch>k__BackingField:
+              m_PersistentCalls:
+                m_Calls:
+                - m_Target: {fileID: 11400000, guid: 6ec191751b4bccd4f88c404c358c8256, type: 2}
+                  m_TargetAssemblyTypeName: FactEntryObject, ReactiveDialogueSystem
+                  m_MethodName: set_Value
+                  m_Mode: 3
+                  m_Arguments:
+                    m_ObjectArgument: {fileID: 0}
+                    m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                    m_IntArgument: 1
+                    m_FloatArgument: 0
+                    m_StringArgument: 
+                    m_BoolArgument: 0
+                  m_CallState: 2

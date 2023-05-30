@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TypewritingSoundDialogueHandler : MonoBehaviour, IDialogueHandler
 {
@@ -13,6 +14,8 @@ public class TypewritingSoundDialogueHandler : MonoBehaviour, IDialogueHandler
     private AudioDialogueUnit _currentTypingSound;
 
     public bool IsHandling => _audioSource.isPlaying;
+    [field: SerializeField] public UnityEvent<RuleEntryObject> OnHandlingStarted { get; private set; }
+    [field: SerializeField] public UnityEvent OnHandlingStopped { get; private set; }
 
     public bool TryHandle(RuleEntryObject ruleEntryObject)
     {
@@ -23,12 +26,14 @@ public class TypewritingSoundDialogueHandler : MonoBehaviour, IDialogueHandler
         Typewriter.OnTyped.RemoveListener(PlayTypingSound);
         Typewriter.OnTyped.AddListener(PlayTypingSound);
 
+        OnHandlingStarted?.Invoke(ruleEntryObject);
         return true;
     }
 
     public void StopHandling()
     {
         _audioSource.Stop();
+        OnHandlingStopped?.Invoke();
     }
 
     private void PlayTypingSound(StringBuilder stringBuilder)

@@ -5,7 +5,7 @@ public class TypewritingWaitInteractor : MonoBehaviour, ITypewritingInteractor
 {
     public bool CanInteract(IDialogueContent content) => content is IDialogueSpeechContent;
 
-    public IEnumerator OnTypewritingAllCoroutine(RuleEntryObject ruleEntry)
+    public IEnumerator OnTypewritingAllCoroutine(RuleEntryObject ruleEntry, IDialogueSpeechContent content)
     {
         yield return null;
     }
@@ -15,7 +15,7 @@ public class TypewritingWaitInteractor : MonoBehaviour, ITypewritingInteractor
         yield return null;
     }
 
-    public IEnumerator OnTypewrittenAllCoroutine(RuleEntryObject ruleEntry)
+    public IEnumerator OnTypewrittenAllCoroutine(RuleEntryObject ruleEntry, IDialogueSpeechContent content)
     {
         yield return null;
     }

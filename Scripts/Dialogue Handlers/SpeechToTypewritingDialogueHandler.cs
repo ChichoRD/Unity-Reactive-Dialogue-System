@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class SpeechToTypewritingDialogueHandler : MonoBehaviour, IDialogueHandler
 {
@@ -14,19 +15,25 @@ public class SpeechToTypewritingDialogueHandler : MonoBehaviour, IDialogueHandle
     [SerializeField] private bool _clearTextOnFinished = true;
     private Coroutine _typewritingCoroutine;
     public bool IsHandling => _typewritingCoroutine != null;
+    [field: SerializeField] public UnityEvent<RuleEntryObject> OnHandlingStarted { get; private set; }
+    [field: SerializeField] public UnityEvent OnHandlingStopped { get; private set; }
 
     public void StopHandling()
     {
         if (!IsHandling) return;
 
+        if (_clearTextOnFinished) Typewriter.ClearTypedText();
+
         StopCoroutine(_typewritingCoroutine);
         _typewritingCoroutine = null;
+        OnHandlingStopped?.Invoke();
     }
 
     public bool TryHandle(RuleEntryObject ruleEntryObject)
     {
         if (ruleEntryObject.GetContent() is not IDialogueSpeechContent content) return false;
         _typewritingCoroutine = StartCoroutine(TypewriteSequential(ruleEntryObject, content));
+        OnHandlingStarted?.Invoke(ruleEntryObject);
         return true;
     }
 
@@ -40,19 +47,18 @@ public class SpeechToTypewritingDialogueHandler : MonoBehaviour, IDialogueHandle
         Typewriter.CharactersPerSecond = initialCharactersPerSecond;
 
         yield return TypewritingInteractor?.OnTypewrittenStepCoroutine(speechUnit, content);
-        if (_clearTextOnFinished) Typewriter.ClearTypedText();
     }
 
     private IEnumerator TypewriteSequential(RuleEntryObject ruleEntryObject, IDialogueSpeechContent content)
     {
-        yield return TypewritingInteractor?.OnTypewritingAllCoroutine(ruleEntryObject);
+        yield return TypewritingInteractor?.OnTypewritingAllCoroutine(ruleEntryObject, content);
 
         foreach (var speechUnit in content.Speech)
             yield return TypewriteSingle(speechUnit, content);
 
-        yield return TypewritingInteractor?.OnTypewrittenAllCoroutine(ruleEntryObject);
+        yield return TypewritingInteractor?.OnTypewrittenAllCoroutine(ruleEntryObject, content);
 
-        _typewritingCoroutine = null;
+        StopHandling();
         ruleEntryObject.RaiseCascadingEvents();
     }
 }

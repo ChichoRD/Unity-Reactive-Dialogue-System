@@ -19,9 +19,9 @@ public class InputtedTypewritingSkipInteractor : MonoBehaviour, ITypewritingInte
     [SerializeField] private Object _typewriterObject;
     private ITypewriter Typewriter => _typewriterObject as ITypewriter;
 
-    public IEnumerator OnTypewritingAllCoroutine(RuleEntryObject ruleEntry)
+    public IEnumerator OnTypewritingAllCoroutine(RuleEntryObject ruleEntry, IDialogueSpeechContent content)
     {
-        yield return AfterSkippingInteractor?.OnTypewritingAllCoroutine(ruleEntry);
+        yield return AfterSkippingInteractor?.OnTypewritingAllCoroutine(ruleEntry, content);
     }
 
     public IEnumerator OnTypewritingStepCoroutine(SpeechDialogueUnit speechUnit, IDialogueSpeechContent content)
@@ -53,9 +53,9 @@ public class InputtedTypewritingSkipInteractor : MonoBehaviour, ITypewritingInte
         yield return AfterSkippingInteractor?.OnTypewrittenStepCoroutine(speechUnit, content);
     }
 
-    public IEnumerator OnTypewrittenAllCoroutine(RuleEntryObject ruleEntry)
+    public IEnumerator OnTypewrittenAllCoroutine(RuleEntryObject ruleEntry, IDialogueSpeechContent content)
     {
-        yield return AfterSkippingInteractor?.OnTypewrittenAllCoroutine(ruleEntry);
+        yield return AfterSkippingInteractor?.OnTypewrittenAllCoroutine(ruleEntry, content);
     }
 
     public bool CanInteract(IDialogueContent content)

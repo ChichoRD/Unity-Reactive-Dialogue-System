@@ -14,9 +14,9 @@ public class InputtedTypewritingWaitInteractor : MonoBehaviour, ITypewritingInte
         return BeforeInputInteractor == null ? content is IDialogueSpeechContent : BeforeInputInteractor.CanInteract(content);
     }
 
-    public IEnumerator OnTypewritingAllCoroutine(RuleEntryObject ruleEntry)
+    public IEnumerator OnTypewritingAllCoroutine(RuleEntryObject ruleEntry, IDialogueSpeechContent content)
     {
-        yield return BeforeInputInteractor?.OnTypewritingAllCoroutine(ruleEntry);
+        yield return BeforeInputInteractor?.OnTypewritingAllCoroutine(ruleEntry, content);
     }
 
     public IEnumerator OnTypewritingStepCoroutine(SpeechDialogueUnit speechUnit, IDialogueSpeechContent content)
@@ -24,9 +24,9 @@ public class InputtedTypewritingWaitInteractor : MonoBehaviour, ITypewritingInte
         yield return BeforeInputInteractor?.OnTypewritingStepCoroutine(speechUnit, content);
     }
 
-    public IEnumerator OnTypewrittenAllCoroutine(RuleEntryObject ruleEntry)
+    public IEnumerator OnTypewrittenAllCoroutine(RuleEntryObject ruleEntry, IDialogueSpeechContent content)
     {
-        yield return BeforeInputInteractor?.OnTypewrittenAllCoroutine(ruleEntry);
+        yield return BeforeInputInteractor?.OnTypewrittenAllCoroutine(ruleEntry, content);
     }
 
     public IEnumerator OnTypewrittenStepCoroutine(SpeechDialogueUnit speechUnit, IDialogueSpeechContent content)
