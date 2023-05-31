@@ -12,7 +12,9 @@ public class AudioDialogueHandler : MonoBehaviour, IDialogueHandler
     public bool TryHandle(RuleEntryObject ruleEntryObject)
     {
         if (ruleEntryObject.GetContent() is not IDialogueAudioContent content ||
-            content is DialogueCharacterisedContent) return false;
+            content is DialogueCharacterisedContent ||
+            content.AudioUnit.Audio == null) return false;
+
         _audioSource.PlayOneShot(content.AudioUnit.Audio, content.AudioUnit.GetVolumeWithVariance(), content.AudioUnit.GetPitchWithVariance());
         OnHandlingStarted?.Invoke(ruleEntryObject);
         return true;

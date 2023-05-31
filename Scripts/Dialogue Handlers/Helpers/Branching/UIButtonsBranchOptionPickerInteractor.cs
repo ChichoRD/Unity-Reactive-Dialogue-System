@@ -10,8 +10,8 @@ using UnityEngine.EventSystems;
 public class UIButtonsBranchOptionPickerInteractor : MonoBehaviour, IBranchOptionPickerInteractor
 {
     [SerializeField] private bool _hideOptionsOnPicked = true;
-    [SerializeField] private bool _useOptionsTimeout = false;
-    [SerializeField] private float _optionsTimeout = 5f;
+    //[SerializeField] private bool _useOptionsTimeout = false;
+    //[SerializeField] private float _optionsTimeout = 5f;
 
     [SerializeField] private Transform _buttonsParent;
     [SerializeField] private EventTrigger _buttonPrefab;
@@ -19,7 +19,7 @@ public class UIButtonsBranchOptionPickerInteractor : MonoBehaviour, IBranchOptio
     private readonly Dictionary<BranchingDialogueUnit, EventTrigger> _branchButtonPairs = new Dictionary<BranchingDialogueUnit, EventTrigger>();
     public bool IsShowingOptions { get; private set; }
     public bool HasPicked { get; private set; }
-    [field: SerializeField] public UnityEvent OnPickedBranch { get;  private set; }
+    [field: SerializeField] public UnityEvent<object> OnPickedBranch { get;  private set; }
 
     public void HideOptions()
     {
@@ -65,7 +65,7 @@ public class UIButtonsBranchOptionPickerInteractor : MonoBehaviour, IBranchOptio
                     HideOptions();
                 HasPicked = true;
                 branch.OnPickedBranch?.Invoke();
-                OnPickedBranch?.Invoke();
+                OnPickedBranch?.Invoke(branch.BrachMetainfo);
             }
         }
 

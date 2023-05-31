@@ -7,19 +7,29 @@ public class TypewritingBranchPickingWaitInteractor : MonoBehaviour, ITypewritin
     [RequireInterface(typeof(IBranchOptionPickerInteractor))]
     [SerializeField] private Object _branchOptionPickerObject;
     private IBranchOptionPickerInteractor BranchOptionPicker => _branchOptionPickerObject as IBranchOptionPickerInteractor;
-    private bool _typewrittenAll;
 
-    public UnityEvent OnPickedBranch => BranchOptionPicker.OnPickedBranch;
+    [RequireInterface(typeof(ITypewritingInteractor))]
+    [SerializeField] private Object _alternativeTypewritingInteractorObject;
+    private ITypewritingInteractor AlternativeTypewritingInteractor => _alternativeTypewritingInteractorObject as ITypewritingInteractor;
+    private bool _typewrittenAll;
+    private bool _branchingRequested;
+
+    public UnityEvent<object> OnPickedBranch => BranchOptionPicker.OnPickedBranch;
     public bool IsShowingOptions => BranchOptionPicker.IsShowingOptions;
     public bool HasPicked => BranchOptionPicker.HasPicked;
 
-    public bool CanInteract(IDialogueContent content) => content is IDialogueBranchContent /*&& content is IDialogueSpeechContent*/;
+    private void Awake()
+    {
+        OnPickedBranch.AddListener(_ => _branchingRequested = false);
+    }
+
+    public bool CanInteract(IDialogueContent content) => _branchingRequested; //content is IDialogueBranchContent /*&& content is IDialogueSpeechContent*/;
 
     public IEnumerator OnTypewritingAllCoroutine(RuleEntryObject ruleEntry, IDialogueSpeechContent content)
     {
         if (!CanInteract(content) || BranchOptionPicker == null)
         {
-            yield return null;
+            yield return AlternativeTypewritingInteractor?.OnTypewritingAllCoroutine(ruleEntry, content);
             yield break;
         }
 
@@ -29,27 +39,30 @@ public class TypewritingBranchPickingWaitInteractor : MonoBehaviour, ITypewritin
 
     public IEnumerator OnTypewritingStepCoroutine(SpeechDialogueUnit speechUnit, IDialogueSpeechContent content)
     {
-        yield return null;
+        yield return AlternativeTypewritingInteractor?.OnTypewritingStepCoroutine(speechUnit, content);
     }
 
     public IEnumerator OnTypewrittenAllCoroutine(RuleEntryObject ruleEntry, IDialogueSpeechContent content)
     {
         if (!CanInteract(content) || BranchOptionPicker == null)
         {
-            yield return null;
+            yield return AlternativeTypewritingInteractor?.OnTypewrittenAllCoroutine(ruleEntry, content);
             yield break;
         }
+        Debug.Log(nameof(OnTypewrittenAllCoroutine));
 
         _typewrittenAll = true;
         yield return null;
+
         yield return new WaitUntil(() => HasPicked || !IsShowingOptions);
         _typewrittenAll = false;
+
         yield return null;
     }
 
     public IEnumerator OnTypewrittenStepCoroutine(SpeechDialogueUnit speechUnit, IDialogueSpeechContent content)
     {
-        yield return null;
+        yield return AlternativeTypewritingInteractor?.OnTypewrittenStepCoroutine(speechUnit, content);
     }
 
     public void HideOptions()
@@ -70,8 +83,7 @@ public class TypewritingBranchPickingWaitInteractor : MonoBehaviour, ITypewritin
 
     public IEnumerator ShowOptionsCoroutine(IDialogueBranchContent branchContent)
     {
-        //Called a lot! Very weird
-        Debug.Log($"Has typewritten all: {_typewrittenAll}");
+        _branchingRequested = true;
         yield return new WaitUntil(() => _typewrittenAll);
         yield return BranchOptionPicker.ShowOptionsCoroutine(branchContent);
     }

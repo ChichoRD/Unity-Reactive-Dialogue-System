@@ -15,10 +15,11 @@ MonoBehaviour:
   <Name>k__BackingField: 
   <ListenerRules>k__BackingField:
   - {fileID: 11400000, guid: 6e67a655ccac1f94e9731f9a38880eab, type: 2}
-  - {fileID: 11400000, guid: 2ef38e70aad91a6479cb1701441499f2, type: 2}
   - {fileID: 11400000, guid: b460ad5d9eb54774ca0372332f1b1194, type: 2}
+  - {fileID: 11400000, guid: 2ef38e70aad91a6479cb1701441499f2, type: 2}
+  - {fileID: 11400000, guid: f02633e9da4de3845987fa85671922c6, type: 2}
   <OnDispatched>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
   _criteriaSatisfactionThreshold: 1
-  _dispatchAllThatPass: 0
+  _dispatchAllThatPass: 1

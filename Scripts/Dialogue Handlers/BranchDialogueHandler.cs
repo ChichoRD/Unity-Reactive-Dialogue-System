@@ -17,6 +17,7 @@ public class BranchDialogueHandler : MonoBehaviour, IDialogueHandler
         if (!IsHandling) return;
 
         BranchOptionPicker.HideOptions();
+        OnHandlingStopped?.Invoke();
     }
 
     public bool TryHandle(RuleEntryObject ruleEntryObject)

@@ -20,4 +20,13 @@ public class FactEntryObject : DialogueEntryObject
     [field: SerializeField] public UnityEvent<int> OnValueSet { get; private set; }
 
     public void Add(int amount) => Value += amount;
+    public void Muliply(int amount) => Value *= amount;
+
+    public void Not() => Value = ~Value;
+    public void And(int other) => Value &= other;
+    public void Or(int other) => Value |= other;
+    public void Xor(int other) => Value ^= other;
+    public void Nand(int other) => Value = ~(Value & other);
+    public void Nor(int other) => Value = ~(Value | other);
+    public void Xnor(int other) => Value = ~(Value ^ other);
 }

@@ -7,4 +7,5 @@ public struct BranchingDialogueUnit
 {
     [field: SerializeField] public string BranchOptionText { get; private set; }
     [field: SerializeField] public UnityEvent OnPickedBranch { get; private set; }
+    public object BrachMetainfo { get; set; }
 }

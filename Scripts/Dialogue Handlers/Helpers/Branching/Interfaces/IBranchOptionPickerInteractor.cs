@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public interface IBranchOptionPickerInteractor : IDialogueContentInteractor
 {
-    UnityEvent OnPickedBranch { get; }
+    UnityEvent<object> OnPickedBranch { get; }
     bool IsShowingOptions { get; }
     bool HasPicked { get; }
 

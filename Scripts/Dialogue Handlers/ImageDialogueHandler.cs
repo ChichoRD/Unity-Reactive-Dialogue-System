@@ -36,6 +36,6 @@ public class ImageDialogueHandler : MonoBehaviour, IDialogueHandler
         yield return content.ImageUnit.UseShowTime ? new WaitForSeconds(content.ImageUnit.ShowTime) : null;
 
         StopHandling();
-        ruleEntryObject.RaiseCascadingEvents();
+        //ruleEntryObject.RaiseCascadingEvents();
     }
 }

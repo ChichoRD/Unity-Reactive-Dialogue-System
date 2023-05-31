@@ -20,7 +20,8 @@ public class TypewritingSoundDialogueHandler : MonoBehaviour, IDialogueHandler
     public bool TryHandle(RuleEntryObject ruleEntryObject)
     {
         if (ruleEntryObject.GetContent() is not IDialogueAudioContent content ||
-            content is not DialogueCharacterisedContent) return false;
+            content is not DialogueCharacterisedContent ||
+            content.AudioUnit.Audio == null) return false;
 
         _currentTypingSound = content.AudioUnit;
         Typewriter.OnTyped.RemoveListener(PlayTypingSound);
