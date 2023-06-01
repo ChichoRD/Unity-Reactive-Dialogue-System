@@ -8,6 +8,7 @@ public class DialogueEventsListener : MonoBehaviour, IDialogueEventsListener
     [SerializeField] private Object _dialogueHandlerObject;
     [SerializeField] private List<EventEntryObject> _eventsEntries = new List<EventEntryObject>();
     [SerializeField] private bool _overrideHandlingOnEventOverflow;
+    [SerializeField] private bool _performInitialisations = true;
 
     public IDialogueHandler DialogueHandler => _dialogueHandlerObject as IDialogueHandler;
     public IEnumerable<EventEntryObject> EventsEntries => _eventsEntries;
@@ -16,11 +17,13 @@ public class DialogueEventsListener : MonoBehaviour, IDialogueEventsListener
 
     private void OnEnable()
     {
+        if (!_performInitialisations) return;
         InitialiseEventListening();
     }
 
     private void OnDisable()
     {
+        if (!_performInitialisations) return;
         FinaliseEventListening();
     }
 

@@ -12,12 +12,17 @@ public class FactEntryObject : DialogueEntryObject
         get => _value;
         set
         {
+            var previousValue = _value;
             _value = value;
+
             OnValueSet?.Invoke(value);
+            if (previousValue != value)
+                OnValueChanged?.Invoke(value);
         }
     }
 
     [field: SerializeField] public UnityEvent<int> OnValueSet { get; private set; }
+    [field: SerializeField] public UnityEvent<int> OnValueChanged { get; private set; }
 
     public void Add(int amount) => Value += amount;
     public void Muliply(int amount) => Value *= amount;

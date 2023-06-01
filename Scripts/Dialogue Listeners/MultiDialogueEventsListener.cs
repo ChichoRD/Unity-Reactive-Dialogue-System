@@ -6,6 +6,7 @@ public class MultiDialogueEventsListener : MonoBehaviour, IDialogueEventsListene
 {
     [SerializeField] private List<DialogueEventsListener> _dialogueEventsListeners = new List<DialogueEventsListener>();
     [SerializeField] private bool _overrideHandlingOnEventOverflow;
+    [SerializeField] private bool _performInitialisations = true;
 
     public IEnumerable<EventEntryObject> EventsEntries => _dialogueEventsListeners.SelectMany(listener => listener.EventsEntries);
     public bool OverrideHandlingOnEventOverflow => _overrideHandlingOnEventOverflow;
@@ -13,11 +14,13 @@ public class MultiDialogueEventsListener : MonoBehaviour, IDialogueEventsListene
 
     private void OnEnable()
     {
+        if (!_performInitialisations) return;
         InitialiseEventListening();
     }
 
     private void OnDisable()
     {
+        if (!_performInitialisations) return;
         FinaliseEventListening();
     }
 
