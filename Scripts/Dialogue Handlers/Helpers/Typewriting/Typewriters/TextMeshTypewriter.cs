@@ -36,16 +36,6 @@ public class TextMeshTypewriter : MonoBehaviour, ITypewriter
         Typewriter.ClearTypedText();
     }
 
-    public void AbortTyping()
-    {
-        Typewriter.AbortTyping();
-    }
-
-    public void SkiptTypingToCompletion()
-    {
-        Typewriter.SkiptTypingToCompletion();
-    }
-
     public string GetTypedText()
     {
         return Typewriter.GetTypedText();

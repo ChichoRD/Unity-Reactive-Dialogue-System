@@ -4,7 +4,7 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Typewriter : MonoBehaviour, ITypewriter
+public class AbortableTypewriter : MonoBehaviour, IAbortableTypewriter
 {
     private const float AVERAGE_CHARACTERS_PER_SECOND = 8.888f;
     private readonly Dictionary<char, float> _charactersWaitTimeMultipliers = new Dictionary<char, float>()
@@ -38,7 +38,7 @@ public class Typewriter : MonoBehaviour, ITypewriter
 
     public void AbortTyping() => _abortToken = true;
 
-    public void SkiptTypingToCompletion() => _skipToken = true;
+    public void SkipTypingToCompletion() => _skipToken = true;
 
     public string GetTypedText() => _stringBuilder.ToString();
 

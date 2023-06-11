@@ -15,9 +15,9 @@ public class InputtedTypewritingSkipInteractor : MonoBehaviour, ITypewritingInte
     [SerializeField] private Object _afterSkippingInteractorObject;
     private ITypewritingInteractor AfterSkippingInteractor => _afterSkippingInteractorObject as ITypewritingInteractor;
 
-    [RequireInterface(typeof(ITypewriter))]
+    [RequireInterface(typeof(IAbortableTypewriter))]
     [SerializeField] private Object _typewriterObject;
-    private ITypewriter Typewriter => _typewriterObject as ITypewriter;
+    private IAbortableTypewriter Typewriter => _typewriterObject as IAbortableTypewriter;
 
     public IEnumerator OnTypewritingAllCoroutine(RuleEntryObject ruleEntry, IDialogueSpeechContent content)
     {
@@ -79,7 +79,7 @@ public class InputtedTypewritingSkipInteractor : MonoBehaviour, ITypewritingInte
 
         if (_skipTypewritingInstantly)
         {
-            Typewriter.SkiptTypingToCompletion();
+            Typewriter.SkipTypingToCompletion();
             return;
         }
 

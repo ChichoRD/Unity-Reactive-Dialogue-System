@@ -30,12 +30,12 @@ MonoBehaviour:
       data:
         _speech:
           _dialogue:
-          - <Message>k__BackingField: 'Hello, choose:'
-            <WaitTime>k__BackingField: 0
+          - <Message>k__BackingField: Test for ya
+            <WaitTime>k__BackingField: 4
             <OverrideTypingSpeed>k__BackingField: 0
             <TypingSpeed>k__BackingField: 0
-          - <Message>k__BackingField: Alice or Bob?
-            <WaitTime>k__BackingField: 0
+          - <Message>k__BackingField: '{name} is {age} years old and is a male? {isMale}'
+            <WaitTime>k__BackingField: 4
             <OverrideTypingSpeed>k__BackingField: 0
             <TypingSpeed>k__BackingField: 0
           _skippable: 1

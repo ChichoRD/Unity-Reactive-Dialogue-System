@@ -12,6 +12,10 @@ public class SpeechToTypewritingDialogueHandler : MonoBehaviour, IDialogueHandle
     [SerializeField] private Object _typewritingInteractorObject;
     private ITypewritingInteractor TypewritingInteractor => _typewritingInteractorObject as ITypewritingInteractor;
 
+    [RequireInterface(typeof(ISpeechUnitAnalyser))]
+    [SerializeField] private Object _speechUnitAnalyserObject;
+    private ISpeechUnitAnalyser SpeechUnitAnalyser => _speechUnitAnalyserObject as ISpeechUnitAnalyser;
+
     [SerializeField] private bool _clearTextOnFinished = true;
     private Coroutine _typewritingCoroutine;
     public bool IsHandling => _typewritingCoroutine != null;
@@ -43,6 +47,7 @@ public class SpeechToTypewritingDialogueHandler : MonoBehaviour, IDialogueHandle
         float initialCharactersPerSecond = Typewriter.CharactersPerSecond;
         Typewriter.CharactersPerSecond = speechUnit.OverrideTypingSpeed ? speechUnit.TypingSpeed : Typewriter.CharactersPerSecond;
 
+        speechUnit = SpeechUnitAnalyser == null ? speechUnit : SpeechUnitAnalyser.Analyse(speechUnit);
         yield return Typewriter.TypeCoroutine(speechUnit.Message);
         Typewriter.CharactersPerSecond = initialCharactersPerSecond;
 

@@ -5,7 +5,8 @@ using UnityEngine.Events;
 
 public class DialogueEventsNotifier : MonoBehaviour
 {
-    [SerializeField] private DialogueEventsListener[] _dialogueEventsListeners = new DialogueEventsListener[] { };
+    [SerializeField] private Object[] _dialogueEventsListenerObjects = new Object[] { };
+    private IEnumerable<IDialogueEventsListener> DialogueEventsListeners => _dialogueEventsListenerObjects.Cast<IDialogueEventsListener>();
     private readonly HashSet<FactEntryObject> _observedFacts = new HashSet<FactEntryObject>();
 
     [field: SerializeField] public UnityEvent OnBecomeRaisable { get; private set; }
@@ -53,13 +54,13 @@ public class DialogueEventsNotifier : MonoBehaviour
     {
         _observedFacts.Clear();
 
-        foreach (var dialogueEventsListener in _dialogueEventsListeners)
+        foreach (var dialogueEventsListener in DialogueEventsListeners)
             foreach (var eventEntry in dialogueEventsListener.EventsEntries)
                 foreach (var rule in eventEntry.ListenerRules)
                     foreach (var condition in rule.Criteria.Conditions)
                         _observedFacts.Add(condition.Fact);
     }
 
-    private bool GetRaisability() => _dialogueEventsListeners.Any(listener => listener.Raisable);
+    private bool GetRaisability() => DialogueEventsListeners.Any(listener => listener.Raisable);
     private void OnFactValueChanged(int arg0) => HasRaisableListeners = GetRaisability();
 }
