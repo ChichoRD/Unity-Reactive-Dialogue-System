@@ -1,12 +1,18 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
 
 /// <summary>
 /// Drawer for the RequireInterface attribute.
 /// </summary>
 [CustomPropertyDrawer(typeof(RequireInterfaceAttribute))]
-public class RequireInterfaceDrawer : PropertyDrawer
+#endif
+public class RequireInterfaceDrawer
+#if UNITY_EDITOR
+    : PropertyDrawer
+#endif
 {
+#if UNITY_EDITOR
     /// <summary>
     /// Overrides GUI drawing for the attribute.
     /// </summary>
@@ -44,4 +50,5 @@ public class RequireInterfaceDrawer : PropertyDrawer
             GUI.color = previousColor;
         }
     }
+#endif
 }

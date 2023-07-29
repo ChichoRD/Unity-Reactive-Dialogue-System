@@ -17,3 +17,6 @@ MonoBehaviour:
   <OnValueSet>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
+  <OnValueChanged>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []

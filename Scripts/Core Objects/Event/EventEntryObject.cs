@@ -13,11 +13,6 @@ public class EventEntryObject : DialogueEntryObject
     [SerializeField][Range(0.0f, 1.0f)] private float _criteriaSatisfactionThreshold = 1.0f;
     [SerializeField] private bool _dispatchAllThatPass;
 
-    private void OnValidate()
-    {
-        ListenerRules = ListenerRules.Distinct().Where(r => r != null).OrderByDescending(r => r.Criteria.ConditionCount).ToList();
-    }
-
     [ContextMenu(nameof(Dispatch))]
     public void Dispatch()
     {
@@ -40,8 +35,9 @@ public class EventEntryObject : DialogueEntryObject
         bestRule.OnDispatched?.Invoke();
     }
 
-    public IEnumerable<RuleEntryObject> GetSuccessfullyDispatchingRules(IEnumerable<RuleEntryObject> orderedRules)
+    public IEnumerable<RuleEntryObject> GetSuccessfullyDispatchingRules(IEnumerable<RuleEntryObject> rules)
     {
+        var orderedRules = rules.Distinct().Where(r => r != null).OrderByDescending(r => r.Criteria.ConditionCount).ToList();
         return orderedRules.Where(r =>
         {
             bool satisfied = r.Criteria.IsSatisfied(out int amountMet);
