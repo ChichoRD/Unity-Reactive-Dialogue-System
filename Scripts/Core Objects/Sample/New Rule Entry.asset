@@ -30,11 +30,8 @@ MonoBehaviour:
       data:
         _speech:
           _dialogue:
-          - <Message>k__BackingField: Test for ya
-            <WaitTime>k__BackingField: 4
-            <OverrideTypingSpeed>k__BackingField: 0
-            <TypingSpeed>k__BackingField: 0
-          - <Message>k__BackingField: '{name} is {age} years old and is a male? {isMale}'
+          - <Message>k__BackingField: Everything working fine <link="rainbow">Test
+              for ya</link> hahaha
             <WaitTime>k__BackingField: 4
             <OverrideTypingSpeed>k__BackingField: 0
             <TypingSpeed>k__BackingField: 0
